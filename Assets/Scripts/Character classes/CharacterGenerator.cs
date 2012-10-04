@@ -18,6 +18,9 @@ public class CharacterGenerator : MonoBehaviour {
 	private const int BUTTON_HEIGHT = 20;
 	
 	private int statStartingPos = 40;
+	
+	public GUIStyle myStyle;
+	//public GUISkin mySkin;
 
 	// Use this for initialization
 	void Start () {
@@ -39,6 +42,8 @@ public class CharacterGenerator : MonoBehaviour {
 	}
 	
 	void OnGUI() {
+		//GUI.skin = mySkin;
+		
 		DisplayName();
 		DisplayPointsLeft();
 		DisplayAttributes();
@@ -55,8 +60,9 @@ public class CharacterGenerator : MonoBehaviour {
 		for (int cnt = 0; cnt < Enum.GetValues(typeof(AttributeName)).Length; cnt++) {
 			GUI.Label(new Rect( OFFSET,  									//x
 								statStartingPos + (cnt * LINE_HEIGHT), 		//y
-								STAT_LABEL_WIDTH, LINE_HEIGHT), 			//width
-								((AttributeName)cnt).ToString());			//height
+								STAT_LABEL_WIDTH, 							//width
+								LINE_HEIGHT									//height
+				), ((AttributeName)cnt).ToString());			
 			
 			GUI.Label(new Rect( STAT_LABEL_WIDTH + OFFSET, 					//x
 								statStartingPos + (cnt * LINE_HEIGHT), 		//y
@@ -68,14 +74,18 @@ public class CharacterGenerator : MonoBehaviour {
 									 statStartingPos + (cnt * BUTTON_HEIGHT), 			//y
 									 BUTTON_WIDTH, 										//width
 									 BUTTON_HEIGHT										//height
-				), "-")) {
+				), "-", myStyle)) {
 				if (_toon.GetPrimaryAttribute(cnt).BaseValue > MIN_STARTING_ATTRIBUTE_VALUE) {
 					_toon.GetPrimaryAttribute(cnt).BaseValue--;
 					pointsLeft++;
 					_toon.StatUpdate();
 				}
 			}
-			if (GUI.Button(new Rect(STAT_LABEL_WIDTH + OFFSET + BASEVALUE_LABEL_WIDTH + BUTTON_WIDTH, statStartingPos + (cnt * BUTTON_HEIGHT), BUTTON_WIDTH, BUTTON_HEIGHT), "+")) {
+			if (GUI.Button(new Rect( STAT_LABEL_WIDTH + OFFSET + BASEVALUE_LABEL_WIDTH + BUTTON_WIDTH,   //x
+									 statStartingPos + (cnt * BUTTON_HEIGHT), 							 //y
+									 BUTTON_WIDTH, 														 //width	
+									 BUTTON_HEIGHT														 //weight
+				), "+", myStyle)) {
 				if (pointsLeft > 0) {
 					_toon.GetPrimaryAttribute(cnt).BaseValue++;
 					pointsLeft--;
