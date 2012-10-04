@@ -12,6 +12,7 @@ public class BaseCharacter : MonoBehaviour {
 	private Skill[] _skill;
 	
 	public void Awake() {
+		Debug.Log("Awake Fired");
 		_name = string.Empty;
 		_level = 0;
 		_freeExp = 0;
@@ -19,16 +20,10 @@ public class BaseCharacter : MonoBehaviour {
 		_primaryAttribute = new Attribute[Enum.GetValues(typeof(AttributeName)).Length];
 		_vital = new Vital[Enum.GetValues(typeof(VitalName)).Length];
 		_skill = new Skill[Enum.GetValues(typeof(SkillName)).Length];
-	}
-	
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		
+		SetupPrimaryAttributes();
+		SetupVitals();
+		SetupSkills();
 	}
 	
 	public string Name {
@@ -115,5 +110,13 @@ public class BaseCharacter : MonoBehaviour {
 		//ranged defence
 		GetVital((int)SkillName.Ranged_Defence).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Speed), .33f));
 		GetVital((int)SkillName.Ranged_Defence).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Nimbleness), .33f));
+	}
+	
+	public void StatUpdate() {
+		for(int cnt = 0; cnt < _vital.Length; cnt++) 
+			_vital[cnt].Update();
+		
+		for(int cnt = 0; cnt < _skill.Length; cnt++)
+			_skill[cnt].Update();
 	}
 }
