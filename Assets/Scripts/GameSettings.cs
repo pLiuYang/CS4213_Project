@@ -50,6 +50,15 @@ public class GameSettings : MonoBehaviour {
 	}
 	
 	public void LoadCharacterData() {
+		GameObject pc = GameObject.Find("pc");
 		
+		PlayerCharacter pcClass = pc.GetComponent<PlayerCharacter>();
+
+		pcClass.Name =  PlayerPrefs.GetString("Player Name", "Name Me");
+		
+		for (int cnt = 0; cnt < Enum.GetValues(typeof(AttributeName)).Length; cnt++) {
+			pcClass.GetPrimaryAttribute(cnt).BaseValue = PlayerPrefs.GetInt(((AttributeName)cnt).ToString() + "- Base Value", 0);
+			pcClass.GetPrimaryAttribute(cnt).ExpToLevel = PlayerPrefs.GetInt(((AttributeName)cnt).ToString() + " - Exp To Level", 0);
+		}
 	}
 }

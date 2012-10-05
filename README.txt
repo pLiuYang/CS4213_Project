@@ -6,4 +6,5 @@ Features:
 	- Character Creation (with name and attributes setting up)
 	- Simple GUI style (buttons for "+", "-")
 	- Save Player's data (using Unity PlayerPrefs)
-	- Create button inactive until name entered
+	- Create button inactive until name entered && points left == 0
+	- Load Player's name and attributes in post creation scenes

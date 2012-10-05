@@ -57,7 +57,7 @@ public class CharacterGenerator : MonoBehaviour {
 		DisplayVitals();
 		DisplaySkills();
 		
-		if (_toon.Name == "")
+		if (_toon.Name == "" || pointsLeft > 0)
 			DisplayCreateLabel();
 		else
 			DisplayCreateButton();
@@ -126,16 +126,26 @@ public class CharacterGenerator : MonoBehaviour {
 	}
 	
 	private void DisplayCreateLabel() {
-		GUI.Label(new Rect( Screen.width / 2 - 50, statStartingPos + (10 * LINE_HEIGHT), 100, LINE_HEIGHT), "Enter Name", "Button");
+		GUI.Label(new Rect( Screen.width / 2 - 50, statStartingPos + (10 * LINE_HEIGHT), 100, LINE_HEIGHT), "Creating...", "Button");
 	}
 	
 	private void DisplayCreateButton() {
 		if (GUI.Button(new Rect( Screen.width / 2 - 50, statStartingPos + (10 * LINE_HEIGHT), 100, LINE_HEIGHT), "Create")) {
 			GameSettings gsScript = GameObject.Find("__GameSettings").GetComponent<GameSettings>();
 			
+			//change the cur value of the vitals to the max modified value of that vital
+			UpdateCurVitalValues();
+			
+			//save the character date
 			gsScript.SaveCharacterData();
 			
-			Application.LoadLevel("TargettingExample");
+			Application.LoadLevel("Level1");
+		}
+	}
+	
+	private void UpdateCurVitalValues() {
+		for (int cnt = 0; cnt < Enum.GetValues(typeof(VitalName)).Length; cnt++) {
+			_toon.GetVital(cnt).CurValue = _toon.GetVital(cnt).AdjustedBaseValue;
 		}
 	}
 }
