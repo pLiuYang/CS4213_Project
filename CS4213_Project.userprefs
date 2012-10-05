@@ -1,16 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Character classes/PlayerCharacter.cs">
-    <Files>
-      <File FileName="Assets/Scripts/Character classes/BaseStat.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Character classes/Attribute.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Character classes/ModifiedStat.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Character classes/Vital.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Character classes/Skill.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Character classes/BaseCharacter.cs" Line="119" Column="25" />
-      <File FileName="Assets/Scripts/Character classes/PlayerCharacter.cs" Line="2" Column="2" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

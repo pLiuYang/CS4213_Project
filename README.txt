@@ -4,3 +4,6 @@ Features:
 	- Melee Combat (pressing F key, with cool down time)
 	- Select Targetting Enemy (pressing Tab key)
 	- Character Creation (with name and attributes setting up)
+	- Simple GUI style (buttons for "+", "-")
+	- Save Player's data (using Unity PlayerPrefs)
+	- Create button inactive until name entered

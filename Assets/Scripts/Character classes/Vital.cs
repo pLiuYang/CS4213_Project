@@ -3,7 +3,7 @@ public class Vital : ModifiedStat {
 	
 	public Vital() {
 		_curValue = 0;
-		ExpToLevel = 50;
+		ExpToLevel = 40;
 		LevelModifier = 1.1f;
 	}
 	

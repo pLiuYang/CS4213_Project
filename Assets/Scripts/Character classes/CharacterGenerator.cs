@@ -21,11 +21,18 @@ public class CharacterGenerator : MonoBehaviour {
 	
 	public GUIStyle myStyle;
 	//public GUISkin mySkin;
+	
+	public GameObject playerPrefab;
 
 	// Use this for initialization
 	void Start () {
-		_toon = new PlayerCharacter();
-		_toon.Awake();
+		GameObject pc = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+		
+		pc.name = "pc";
+		
+//		_toon = new PlayerCharacter();
+//		_toon.Awake();
+		_toon = pc.GetComponent<PlayerCharacter>();
 		
 		pointsLeft = STARTING_POINTS;
 		for (int cnt = 0; cnt < Enum.GetValues(typeof(AttributeName)).Length; cnt++) {
@@ -49,6 +56,11 @@ public class CharacterGenerator : MonoBehaviour {
 		DisplayAttributes();
 		DisplayVitals();
 		DisplaySkills();
+		
+		if (_toon.Name == "")
+			DisplayCreateLabel();
+		else
+			DisplayCreateButton();
 	}
 	
 	private void DisplayName() {
@@ -111,5 +123,19 @@ public class CharacterGenerator : MonoBehaviour {
 	
 	private void DisplayPointsLeft() {
 		GUI.Label(new Rect(250, 10, STAT_LABEL_WIDTH, LINE_HEIGHT), "Points Left: " + pointsLeft.ToString());
+	}
+	
+	private void DisplayCreateLabel() {
+		GUI.Label(new Rect( Screen.width / 2 - 50, statStartingPos + (10 * LINE_HEIGHT), 100, LINE_HEIGHT), "Enter Name", "Button");
+	}
+	
+	private void DisplayCreateButton() {
+		if (GUI.Button(new Rect( Screen.width / 2 - 50, statStartingPos + (10 * LINE_HEIGHT), 100, LINE_HEIGHT), "Create")) {
+			GameSettings gsScript = GameObject.Find("__GameSettings").GetComponent<GameSettings>();
+			
+			gsScript.SaveCharacterData();
+			
+			Application.LoadLevel("TargettingExample");
+		}
 	}
 }

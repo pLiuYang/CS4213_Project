@@ -12,7 +12,7 @@ public class BaseCharacter : MonoBehaviour {
 	private Skill[] _skill;
 	
 	public void Awake() {
-		Debug.Log("Awake Fired");
+		//Debug.Log("Awake Fired");
 		_name = string.Empty;
 		_level = 0;
 		_freeExp = 0;
@@ -55,6 +55,7 @@ public class BaseCharacter : MonoBehaviour {
 	private void SetupPrimaryAttributes() {
 		for(int cnt = 0; cnt < _primaryAttribute.Length; cnt++) {
 			_primaryAttribute[cnt] = new Attribute();
+			_primaryAttribute[cnt].Name = ((AttributeName)cnt).ToString();
 		}
 	}
 	
