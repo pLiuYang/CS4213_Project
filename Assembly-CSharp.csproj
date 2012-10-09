@@ -44,6 +44,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\CSMessenger Extended\Callback.cs" />
+     <Compile Include="Assets\Scripts\CSMessenger Extended\Messenger.cs" />
      <Compile Include="Assets\Scripts\Character classes\Attribute.cs" />
      <Compile Include="Assets\Scripts\Character classes\BaseCharacter.cs" />
      <Compile Include="Assets\Scripts\Character classes\BaseStat.cs" />
@@ -57,6 +59,7 @@
      <Compile Include="Assets\Scripts\EnemyHealth.cs" />
      <Compile Include="Assets\Scripts\GameMaster.cs" />
      <Compile Include="Assets\Scripts\GameSettings.cs" />
+     <Compile Include="Assets\Scripts\HUD Classes\VitalBar.cs" />
      <Compile Include="Assets\Scripts\PlayerAttack.cs" />
      <Compile Include="Assets\Scripts\PlayerHealth.cs" />
      <Compile Include="Assets\Scripts\Targetting.cs" />

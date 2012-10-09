@@ -1,14 +1,16 @@
 public class BaseStat {
-	private int _baseValue;				//the base value of this stat
-	private int _buffValue;				//the amount of the buff to this stat
-	private int _expToLevel;			//the total amount of exp needed to raise this skill
-	private float _levelModifier;		//the modifier applied to the exp needed to raise the skill
+	public const int START_EXP_COST = 100;	//publicly accessable value for all base stats to start at
+	
+	private int _baseValue;					//the base value of this stat
+	private int _buffValue;					//the amount of the buff to this stat
+	private int _expToLevel;				//the total amount of exp needed to raise this skill
+	private float _levelModifier;			//the modifier applied to the exp needed to raise the skill
 	
 	public BaseStat() {
 		_baseValue = 0;
 		_buffValue = 0;
 		_levelModifier = 1.1f;
-		_expToLevel = 100;
+		_expToLevel = START_EXP_COST;
 	}
 	
 #region Basic Setters and Getters
