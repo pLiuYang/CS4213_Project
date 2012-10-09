@@ -1,10 +1,10 @@
 public class Attribute : BaseStat {
-	new public const int STARTING_EXP_COST = 50;
+	new public const int START_EXP_COST = 50;
 	
 	private string _name;
 	
 	public Attribute() {
-		ExpToLevel = STARTING_EXP_COST;
+		ExpToLevel = START_EXP_COST;
 		LevelModifier = 1.05f;
 		_name = "";
 	}
