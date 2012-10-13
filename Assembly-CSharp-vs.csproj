@@ -60,8 +60,12 @@
      <Compile Include="Assets\Scripts\GameMaster.cs" />
      <Compile Include="Assets\Scripts\GameSettings.cs" />
      <Compile Include="Assets\Scripts\HUD Classes\VitalBar.cs" />
+     <Compile Include="Assets\Scripts\MainMenu.cs" />
+     <Compile Include="Assets\Scripts\Mob.cs" />
+     <Compile Include="Assets\Scripts\MobGenerator.cs" />
      <Compile Include="Assets\Scripts\PlayerAttack.cs" />
      <Compile Include="Assets\Scripts\PlayerHealth.cs" />
+     <Compile Include="Assets\Scripts\TargetMob.cs" />
      <Compile Include="Assets\Scripts\Targetting.cs" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
  <Reference Include="Library\ScriptAssemblies\Assembly-UnityScript-firstpass">

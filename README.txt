@@ -8,3 +8,5 @@ Features:
 	- Save Player's data (using Unity PlayerPrefs)
 	- Create button inactive until name entered && points left == 0
 	- Load Player's name and attributes in post creation scenes
+	- HealthBar with GUITexture
+	- Mob class
