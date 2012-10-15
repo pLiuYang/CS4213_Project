@@ -4,7 +4,7 @@ using System;							//used for the Enum class
 
 public class CharacterGenerator : MonoBehaviour {
 	private PlayerCharacter _toon;
-	private const int STARTING_POINTS = 350;
+	private const int STARTING_POINTS = 290;
 	private const int MIN_STARTING_ATTRIBUTE_VALUE = 10;
 	private const int STARTINT_VALUE = 50;
 	private int pointsLeft;
@@ -30,9 +30,10 @@ public class CharacterGenerator : MonoBehaviour {
 		
 		pc.name = "pc";
 		
-//		_toon = new PlayerCharacter();
-//		_toon.Awake();
 		_toon = pc.GetComponent<PlayerCharacter>();
+		
+			//_toon = new PlayerCharacter();
+			//_toon.Awake();
 		
 		pointsLeft = STARTING_POINTS;
 		for (int cnt = 0; cnt < Enum.GetValues(typeof(AttributeName)).Length; cnt++) {

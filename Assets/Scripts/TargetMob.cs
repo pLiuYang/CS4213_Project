@@ -35,25 +35,30 @@ public class TargetMob : MonoBehaviour {
 	}
 	
 	private void TargetEnemy() {
-		if (selectedTarget == null)
-		{
-			SortTargetsByDistance();
-			selectedTarget = targets[0];
-		}
-		else
-		{
-			int index = targets.IndexOf(selectedTarget);
-			
-			if (index < targets.Count - 1)
-				index++;
-			else
-				index = 0;
-			
-			DeselectTarget();
-			selectedTarget = targets[index];
+		if (targets.Count == 0) {
+			AddAllEnemies();
 		}
 		
-		SelectTarget();
+		if (targets.Count > 0) {
+			if (selectedTarget == null)
+			{
+				SortTargetsByDistance();
+				selectedTarget = targets[0];
+			}
+			else
+			{
+				int index = targets.IndexOf(selectedTarget);
+				
+				if (index < targets.Count - 1)
+					index++;
+				else
+					index = 0;
+				
+				DeselectTarget();
+				selectedTarget = targets[index];
+			}
+			SelectTarget();
+		}
 	}
 	
 	private void SelectTarget() {

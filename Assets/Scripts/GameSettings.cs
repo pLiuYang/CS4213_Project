@@ -24,7 +24,7 @@ public class GameSettings : MonoBehaviour {
 		
 		PlayerCharacter pcClass = pc.GetComponent<PlayerCharacter>();
 		
-		PlayerPrefs.DeleteAll();
+		//PlayerPrefs.DeleteAll();
 		
 		PlayerPrefs.SetString("Player Name", pcClass.Name);
 		

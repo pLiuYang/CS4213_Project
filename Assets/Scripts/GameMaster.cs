@@ -13,11 +13,11 @@ public class GameMaster : MonoBehaviour {
 	private GameObject _pc;
 	private PlayerCharacter _pcScript;
 	
-	private Vector3 _playerSpawnPointPos;		//this is the place in 3d place where I want my player to spawm
+	public Vector3 _playerSpawnPointPos;		//this is the place in 3d place where I want my player to spawm
 	
 	// Use this for initialization
 	void Start () {
-		_playerSpawnPointPos = new Vector3(240, 7, 116);			//default pos for our player spawn point
+		//_playerSpawnPointPos = new Vector3(990, 91, 990);			//default pos for our player spawn point
 		
 		GameObject go = GameObject.Find(GameSettings.PLAYER_SPAWN_POINT);
 		

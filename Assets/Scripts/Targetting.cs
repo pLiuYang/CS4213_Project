@@ -64,7 +64,7 @@ public class Targetting : MonoBehaviour {
 	}
 	
 	private void DeselectTarget() {
-		selectedTarget.renderer.material.color = Color.blue;
+		selectedTarget.renderer.material.color = Color.white;
 		selectedTarget = null;
 	}
 	

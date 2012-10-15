@@ -1,21 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MobGenerator.cs">
-    <Files>
-      <File FileName="Assets/Scripts/Character classes/BaseStat.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Character classes/Attribute.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Character classes/ModifiedStat.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Character classes/Vital.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Character classes/Skill.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Character classes/BaseCharacter.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GameSettings.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GameMaster.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/HUD Classes/VitalBar.cs" Line="43" Column="25" />
-      <File FileName="Assets/Scripts/TargetMob.cs" Line="77" Column="56" />
-      <File FileName="Assets/Scripts/Mob.cs" Line="9" Column="1" />
-      <File FileName="Assets/Scripts/MobGenerator.cs" Line="22" Column="13" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

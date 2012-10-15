@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MobGenerator : MonoBehaviour {
 	public enum State {
@@ -38,6 +39,11 @@ public class MobGenerator : MonoBehaviour {
 	}
 	
 	private void Initialize() {
+		if (!CheckForMobPrefabs())
+			return;
+		if (!CheckForSpawnPoints())
+			return;
+		
 		state = MobGenerator.State.Setup;
 	}
 	
@@ -46,6 +52,45 @@ public class MobGenerator : MonoBehaviour {
 	}
 	
 	private void SpawnMob() {
+		GameObject[] gos = AvailableSpawnPoints();
+		
+		for (int cnt = 0; cnt < gos.Length; cnt ++) {
+			GameObject go = Instantiate(mobPrefabs[Random.Range(0, mobPrefabs.Length)],
+										gos[cnt].transform.position,
+										Quaternion.identity
+										) as GameObject;
+			go.transform.parent = gos[cnt].transform;
+		}
+		
 		state = MobGenerator.State.Idle;
+	}
+	
+	//check to see that we have at least one mob prefab to spawn
+	private bool CheckForMobPrefabs() {
+		if (mobPrefabs.Length > 0)
+			return true;
+		else 
+			return false;
+	}
+	
+	//check to see if we have at least one spawn point to spawn mobs
+	private bool CheckForSpawnPoints() {
+		if (spawnPoints.Length > 0)
+			return true;
+		else
+			return false;
+	}
+	
+	//generate a list of available spawn points that do not have any mobs childed to it
+	private GameObject[] AvailableSpawnPoints() {
+		List<GameObject> gos = new List<GameObject>();
+		
+		for (int cnt = 0; cnt < spawnPoints.Length; cnt++) {
+			if (spawnPoints[cnt].transform.childCount == 0) {
+				gos.Add(spawnPoints[cnt]);
+			}
+		}
+		
+		return gos.ToArray();
 	}
 }
