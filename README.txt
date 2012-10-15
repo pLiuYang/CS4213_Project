@@ -10,3 +10,8 @@ Features:
 	- Load Player's name and attributes in post creation scenes
 	- HealthBar with GUITexture
 	- Mob class
+	- Main menu
+	- Item class, buff item, weapon 
+
+TUTORIAL COMPLETED: 1 - 63, 142 - 146
+TO DO: 64 - 65, 
