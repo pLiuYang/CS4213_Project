@@ -44,6 +44,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AdvancedMovement.cs" />
      <Compile Include="Assets\Scripts\CSMessenger Extended\Callback.cs" />
      <Compile Include="Assets\Scripts\CSMessenger Extended\Messenger.cs" />
      <Compile Include="Assets\Scripts\Character classes\Attribute.cs" />
@@ -60,12 +61,18 @@
      <Compile Include="Assets\Scripts\GameMaster.cs" />
      <Compile Include="Assets\Scripts\GameSettings.cs" />
      <Compile Include="Assets\Scripts\HUD Classes\VitalBar.cs" />
+     <Compile Include="Assets\Scripts\Items\Armor.cs" />
      <Compile Include="Assets\Scripts\Items\BuffItem.cs" />
+     <Compile Include="Assets\Scripts\Items\Clothing.cs" />
+     <Compile Include="Assets\Scripts\Items\Consumable.cs" />
      <Compile Include="Assets\Scripts\Items\Item.cs" />
+     <Compile Include="Assets\Scripts\Items\Jewelry.cs" />
      <Compile Include="Assets\Scripts\Items\Weapon.cs" />
      <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\Mob.cs" />
      <Compile Include="Assets\Scripts\MobGenerator.cs" />
+     <Compile Include="Assets\Scripts\Movement.cs" />
+     <Compile Include="Assets\Scripts\MyCamera.cs" />
      <Compile Include="Assets\Scripts\PlayerAttack.cs" />
      <Compile Include="Assets\Scripts\PlayerHealth.cs" />
      <Compile Include="Assets\Scripts\TargetMob.cs" />

@@ -1,12 +1,19 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Items/Weapon.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/AdvancedMovement.cs">
     <Files>
-      <File FileName="Assets/Scripts/Character classes/BaseStat.cs" Line="16" Column="14" />
+      <File FileName="Assets/Scripts/Character classes/BaseStat.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Character classes/Attribute.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Items/Item.cs" Line="30" Column="20" />
-      <File FileName="Assets/Scripts/Items/BuffItem.cs" Line="21" Column="33" />
-      <File FileName="Assets/Scripts/Items/Weapon.cs" Line="53" Column="1" />
+      <File FileName="Assets/Scripts/Items/Item.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Items/BuffItem.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Items/Weapon.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/GameSettings.cs" Line="23" Column="3" />
+      <File FileName="Assets/Scripts/GameMaster.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Items/Armor.cs" Line="16" Column="28" />
+      <File FileName="Assets/Scripts/Items/Consumable.cs" Line="58" Column="26" />
+      <File FileName="Assets/Scripts/MyCamera.cs" Line="93" Column="24" />
+      <File FileName="Assets/Scripts/Movement.cs" Line="47" Column="5" />
+      <File FileName="Assets/Scripts/AdvancedMovement.cs" Line="63" Column="14" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
