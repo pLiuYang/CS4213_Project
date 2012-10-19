@@ -3,6 +3,25 @@ using System.Collections;
 
 [RequireComponent (typeof(CharacterController))]
 public class AdvancedMovement : MonoBehaviour {
+	public enum State {
+		Idle,
+		Init,
+		Setup,
+		Run
+	}
+	
+	public enum Turn {
+		left = -1,
+		none = 0,
+		right = 1
+	}
+	
+	public enum Forward {
+		back = -1,
+		none = 0,
+		forward = 1
+	}
+	
 	public float walkSpeed = 5;
 	public float runMultiplier = 2;
 	public float rotateSpeed = 250;
@@ -18,40 +37,78 @@ public class AdvancedMovement : MonoBehaviour {
 	private Transform _myTransform;
 	private CharacterController _controller;
 	
+	private Turn _turn;
+	private Forward _forward;
+	private Turn _strafe;
+	private bool _run;
+	private bool _jump;
+	
+	private State _state;
+	
 	public void Awake() {
 		_myTransform = transform;
 		_controller = GetComponent<CharacterController>();
+		
+		_state = AdvancedMovement.State.Init;
 	}
 	
 	// Use this for initialization
-	void Start () {
-		_moveDirection = Vector3.zero;
-		
-		animation.Stop();
-		
-		animation.wrapMode = WrapMode.Loop;
-		
-		animation["jump"].layer = 1;
-		animation["jump"].wrapMode = WrapMode.Once;
-		
-		animation.Play("NormIdle");
+	IEnumerator Start () {
+		while (true) {
+			switch (_state) {
+			case State.Init:
+				Init ();
+				break;
+			case State.Setup:
+				Setup();
+				break;
+			case State.Run:
+				ActionPicker ();
+				break;
+			}
+			
+			yield return null;
+		}
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetButton("Rotate Player")) {
-			_myTransform.Rotate(0, Input.GetAxis("Rotate Player") * Time.deltaTime * rotateSpeed, 0);
-		}
+	private void Init() {
+		if (!GetComponent<CharacterController>()) return;
+		if (!GetComponent<Animation>())	return;
+		
+		_state = AdvancedMovement.State.Setup;
+	}
+	
+	private void Setup() {
+		_moveDirection = Vector3.zero;
+		animation.Stop();
+		animation.wrapMode = WrapMode.Loop;
+		animation["jump"].layer = 1;
+		animation["jump"].wrapMode = WrapMode.Once;
+		animation.Play("NormIdle");
+		
+		_turn = AdvancedMovement.Turn.none;
+		_forward = AdvancedMovement.Forward.none;
+		_strafe = Turn.none;
+		_run = false;
+		_jump = false;
+		
+		_state = AdvancedMovement.State.Run;
+	}
+	
+	private void ActionPicker() {
+		//if (Input.GetButton("Rotate Player")) {
+		_myTransform.Rotate(0, (int)_turn * Time.deltaTime * rotateSpeed, 0);
+		//}
 		
 		if (_controller.isGrounded) {
 			airTime = 0;
 			
-			_moveDirection = new Vector3(Input.GetAxis("Strafe"), 0, Input.GetAxis("Move Forward"));
+			_moveDirection = new Vector3((int)_strafe, 0, (int)_forward);
 			_moveDirection = _myTransform.TransformDirection(_moveDirection).normalized;
 			_moveDirection *= walkSpeed;
 			
-			if (Input.GetButton("Move Forward")) {
-				if (Input.GetButton("Run")) {
+			if (_forward != Forward.none) {
+				if (_run) {
 					_moveDirection *= runMultiplier;
 					animation["GoodWalk"].speed = 3;
 					Run ();
@@ -59,16 +116,17 @@ public class AdvancedMovement : MonoBehaviour {
 					animation["GoodWalk"].speed = 1;
 					Walk ();
 				}
-			} else if (Input.GetButton("Strafe")) {
+			} else if (_strafe != AdvancedMovement.Turn.none) {
 				Strafe();
 			} else {
 				Idle ();
 			}
 			
-			if (Input.GetButton("Jump")) {
+			if (_jump) {
 				if (airTime < jumpTime) {
 					_moveDirection.y += jumpHeight;
 					Jump ();
+					_jump = false;
 				}
 			}
 		}
@@ -85,6 +143,26 @@ public class AdvancedMovement : MonoBehaviour {
 		_moveDirection.y -= gravity * Time.deltaTime;
 		
 		_collisionFlags = _controller.Move(_moveDirection * Time.deltaTime);
+	}
+	
+	public void MoveMeForward(Forward z) {
+		_forward = z;
+	}
+	
+	public void ToggleRun() {
+		_run = !_run;
+	}
+	
+	public void RotateMe(Turn y) {
+		_turn = y;
+	}
+	
+	public void Strafe(Turn x) {
+		_strafe = x;
+	}
+	
+	public void JumpUp() {
+		_jump = true;
 	}
 	
 	public void Idle() {

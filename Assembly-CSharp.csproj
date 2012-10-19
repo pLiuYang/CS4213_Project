@@ -44,6 +44,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AI.cs" />
      <Compile Include="Assets\Scripts\AdvancedMovement.cs" />
      <Compile Include="Assets\Scripts\CSMessenger Extended\Callback.cs" />
      <Compile Include="Assets\Scripts\CSMessenger Extended\Messenger.cs" />
@@ -75,6 +76,7 @@
      <Compile Include="Assets\Scripts\MyCamera.cs" />
      <Compile Include="Assets\Scripts\PlayerAttack.cs" />
      <Compile Include="Assets\Scripts\PlayerHealth.cs" />
+     <Compile Include="Assets\Scripts\PlayerInput.cs" />
      <Compile Include="Assets\Scripts\TargetMob.cs" />
      <Compile Include="Assets\Scripts\Targetting.cs" />
      <Compile Include="Assets\TerrainToolkit\TerrainToolkit.cs" />
