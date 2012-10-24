@@ -56,12 +56,15 @@
      <Compile Include="Assets\Scripts\Character classes\PlayerCharacter.cs" />
      <Compile Include="Assets\Scripts\Character classes\Skill.cs" />
      <Compile Include="Assets\Scripts\Character classes\Vital.cs" />
+     <Compile Include="Assets\Scripts\Chest.cs" />
      <Compile Include="Assets\Scripts\EnemyAI.cs" />
      <Compile Include="Assets\Scripts\EnemyAttack.cs" />
      <Compile Include="Assets\Scripts\EnemyHealth.cs" />
      <Compile Include="Assets\Scripts\GameMaster.cs" />
      <Compile Include="Assets\Scripts\GameSettings.cs" />
      <Compile Include="Assets\Scripts\HUD Classes\VitalBar.cs" />
+     <Compile Include="Assets\Scripts\HUD Classes\myGUI.cs" />
+     <Compile Include="Assets\Scripts\ItemGenerator.cs" />
      <Compile Include="Assets\Scripts\Items\Armor.cs" />
      <Compile Include="Assets\Scripts\Items\BuffItem.cs" />
      <Compile Include="Assets\Scripts\Items\Clothing.cs" />

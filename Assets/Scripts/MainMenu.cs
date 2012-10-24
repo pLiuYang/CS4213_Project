@@ -57,11 +57,11 @@ public class MainMenu : MonoBehaviour {
 	
 	void OnGUI() {
 		if (_hasCharacter) {
-			if (GUI.Button(new Rect(10, 10, 110, 25), "Load Character")) {
+			if (GUI.Button(new Rect(10, 40, 110, 25), "Load Character")) {
 				_levelToLoad = _firstLevel;
 			}
 			
-			if (GUI.Button(new Rect(10, 40, 110, 25), "Delete Character")) {
+			if (GUI.Button(new Rect(10, 10, 110, 25), "New Game")) {
 				PlayerPrefs.DeleteAll();
 				PlayerPrefs.SetFloat("ver", VERSION);
 				_levelToLoad = _CharacterGeneration;

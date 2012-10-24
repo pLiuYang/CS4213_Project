@@ -11,6 +11,10 @@ public class PlayerInput : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetButtonUp("Toggle Inventory")) {
+			Messenger.Broadcast("ToggleInventory");
+		}
+		
 		if (Input.GetButton("Move Forward")) {
 			if (Input.GetAxis("Move Forward") > 0) {
 				SendMessage("MoveMeForward", AdvancedMovement.Forward.forward);

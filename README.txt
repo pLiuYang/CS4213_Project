@@ -16,5 +16,5 @@ Features:
 	- Player Moverment
 	- Input manager
 
-TUTORIAL COMPLETED: 1 - 63, 66 - 71, 84 - 100,  142 - 146
+TUTORIAL COMPLETED: 1 - 63, 66 - 71, 84 - 110,  142 - 146,
 TO DO: 64 - 65, 72 - 83

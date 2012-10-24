@@ -46,6 +46,12 @@ public class Item {
 		get {return _curDur;}
 		set {_curDur = value;}
 	}
+	
+	public virtual string ToolTip() {
+		return Name + "\n" + 
+			"Value " + Value + "\n" +
+				"Durability " + CurDurability + "/" + MaxDurability + "\n";
+	}
 }
 
 public enum RarityTypes {
