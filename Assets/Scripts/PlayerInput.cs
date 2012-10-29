@@ -15,6 +15,10 @@ public class PlayerInput : MonoBehaviour {
 			Messenger.Broadcast("ToggleInventory");
 		}
 		
+		if (Input.GetButtonUp("Toggle Character Window")) {
+			Messenger.Broadcast("ToggleCharacterWindow");
+		}
+		
 		if (Input.GetButton("Move Forward")) {
 			if (Input.GetAxis("Move Forward") > 0) {
 				SendMessage("MoveMeForward", AdvancedMovement.Forward.forward);

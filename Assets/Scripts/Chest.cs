@@ -30,6 +30,9 @@ public class Chest : MonoBehaviour {
 	
 	public List<Item> loot = new List<Item>();
 	
+	public static float defaultLifeTimer = 120;
+	private float _lifeTimer = 0;
+	
 	// Use this for initialization
 	void Start () {
 		_myTransform = transform;
@@ -47,6 +50,11 @@ public class Chest : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		_lifeTimer += Time.deltaTime;
+		
+		if (_lifeTimer > defaultLifeTimer && state == Chest.State.close)
+			Destroy(gameObject);
+		
 		if (!inUse)
 			return;
 		
@@ -120,12 +128,23 @@ public class Chest : MonoBehaviour {
 		animation.Play("close");
 		particleEffect.active = false;
 		audio.PlayOneShot(closeSound);
+		
+		float tempTimer = animation["close"].length;
+		
+		if (closeSound.length > tempTimer)
+			tempTimer = closeSound.length;
+		
 		yield return new WaitForSeconds(animation["close"].length);
 		
 		state = Chest.State.close;
 		
 		if (loot.Count == 0)
 			Destroy(gameObject);
+	}
+	
+	private void DestoryChest() {
+		loot = null;
+		Destroy(gameObject);
 	}
 	
 	public void ForceClose() {

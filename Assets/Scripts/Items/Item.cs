@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class Item {
 	private string _name;
 	private int _value;
@@ -5,6 +7,7 @@ public class Item {
 	private int _durability;
 	private int _curDur;
 	private int _maxDur;
+	private Texture2D _icon;
 	
 	public Item() {
 		_name = "Need Name";
@@ -45,6 +48,11 @@ public class Item {
 	public int CurDurability {
 		get {return _curDur;}
 		set {_curDur = value;}
+	}
+	
+	public Texture2D Icon {
+		get { return _icon; }
+		set { _icon = value; }
 	}
 	
 	public virtual string ToolTip() {
