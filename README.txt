@@ -13,8 +13,17 @@ Features:
 	- Main menu
 	- Item class, buff item, weapon 
 	- Camera Controls
-	- Player Moverment
+	- Player Moverment (simple and advanced with FSM)
 	- Input manager
+	- Mob AI with FSM
+	- Interacting with items like chest
+	- Looting from chest to get items inside
+	- Inventory panel
+	- Item generator for chest
+	- Tool tips
+	- Character window
+	- Equipment panel
+	- Changeable weapon meshes
 
-TUTORIAL COMPLETED: 1 - 63, 66 - 71, 84 - 114,  116 - 132, 134 - 146,
+TUTORIAL COMPLETED: 1 - 63, 66 - 71, 84 - 114,  116 - 131, 134 - 146,
 TO DO: 64 - 65, 72 - 83, 115(need to create swim animation for the character), 133(create or download icons and use them in GUI stylings)
