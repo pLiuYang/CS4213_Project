@@ -16,5 +16,5 @@ Features:
 	- Player Moverment
 	- Input manager
 
-TUTORIAL COMPLETED: 1 - 63, 66 - 71, 84 - 110,  142 - 146,
-TO DO: 64 - 65, 72 - 83
+TUTORIAL COMPLETED: 1 - 63, 66 - 71, 84 - 114,  116 - 132, 134 - 146,
+TO DO: 64 - 65, 72 - 83, 115(need to create swim animation for the character), 133(create or download icons and use them in GUI stylings)
