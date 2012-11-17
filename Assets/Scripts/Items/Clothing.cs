@@ -1,28 +1,34 @@
 using UnityEngine;
 
 public class Clothing : BuffItem {
-	private ArmorSlot _slot;
+	private EquipmentSlot _slot;
+//	private ArmorSlot _slot;
 	
 	public Clothing() {
-		_slot = ArmorSlot.Head;
+//		_slot = ArmorSlot.Head;
+		_slot = EquipmentSlot.Head;
 	}
 	
-	public Clothing(ArmorSlot slot) {
+	public Clothing(EquipmentSlot slot) {
 		_slot = slot;
 	}
 	
-	public ArmorSlot Slot {
+	public EquipmentSlot Slot {
 		get {return _slot;}
 		set {_slot = value;}
 	}
 }
 
+/*
 public enum ArmorSlot {
 	Head,
 	Shoulders,
-	UpperBody,
 	Torso,
+	Legs,
 	Hands,
 	Feet,
-	Back
-}
+	Back,
+	OffHand,
+	MainHand,
+	COUNT
+}*/

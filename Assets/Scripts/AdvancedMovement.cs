@@ -7,7 +7,8 @@ public class AdvancedMovement : MonoBehaviour {
 		Idle,
 		Init,
 		Setup,
-		Run
+		Run,
+		Attack
 	}
 	
 	public enum Turn {
@@ -21,6 +22,9 @@ public class AdvancedMovement : MonoBehaviour {
 		none = 0,
 		forward = 1
 	}
+	
+	public AnimationClip attack;
+	public string inCombatIdle;
 	
 	public float walkSpeed = 5;
 	public float runMultiplier = 2;
@@ -45,11 +49,15 @@ public class AdvancedMovement : MonoBehaviour {
 	
 	private State _state;
 	
+	private BaseCharacter _bc;
+	
 	public void Awake() {
 		_myTransform = transform;
 		_controller = GetComponent<CharacterController>();
 		
 		_state = AdvancedMovement.State.Init;
+		
+		_bc = gameObject.GetComponent<BaseCharacter>();
 	}
 	
 	// Use this for initialization
@@ -166,7 +174,13 @@ public class AdvancedMovement : MonoBehaviour {
 	}
 	
 	public void Idle() {
-		animation.CrossFade("GoodIdle");
+		//if (inCombatIdle == "")
+			//return;
+		
+		if (!_bc.inCombat)
+			animation.CrossFade("GoodIdle");
+		else if (_myTransform.FindChild("Name") == null)
+			animation.CrossFade("GoodIdle");
 	}
 	
 	public void Walk() {
@@ -187,5 +201,22 @@ public class AdvancedMovement : MonoBehaviour {
 	
 	public void Fall() {
 		animation.CrossFade("GoodIdle"); // should be "fall"
+	}
+	
+	public void PlayMeleeAttack() {
+		animation[attack.name].wrapMode = WrapMode.Once;
+		
+		if (attack == null) {
+			Debug.LogWarning("We need an attack animation clip");
+			return;
+		}
+		
+		Debug.Log("amin length: " + attack.length);
+		
+		//animation[attack.name].speed = animation[attack.name].length / 2f;
+		
+		Debug.Log("amin speed2222222: " + animation[attack.name].speed.ToString());
+		
+		animation.Play(attack.name);
 	}
 }

@@ -5,6 +5,13 @@ using System;
 public class GameSettings : MonoBehaviour {
 	public const string PLAYER_SPAWN_POINT = "Player Spawn Point";	//this is the name of the gameobject that the player will spawn on at the start of the level
 	
+	public static string[] levelNames = new string[4] {
+		"MainMenu",
+		"CharacterGenerator",
+		"CharacterCustomization",
+		"Level1"
+	};
+	
 	void Awake() {
 		DontDestroyOnLoad(this);
 	}
@@ -18,7 +25,7 @@ public class GameSettings : MonoBehaviour {
 	void Update () {
 	
 	}
-	
+	/*
 	public void SaveCharacterData() {
 		GameObject pc = GameObject.Find("pc");
 		
@@ -47,8 +54,8 @@ public class GameSettings : MonoBehaviour {
 			//PlayerPrefs.SetBool(((SkillName)cnt).ToString() + " - Known", pcClass.GetSkill(cnt).Known);
 			//PlayerPrefs.SetString(((SkillName)cnt).ToString() + " - Mods", pcClass.GetSkill(cnt).GetModifyingAttributesString());
 		}
-	}
-	
+	} */
+/*	
 	public void LoadCharacterData() {
 		GameObject pc = GameObject.Find("pc");
 		
@@ -76,5 +83,5 @@ public class GameSettings : MonoBehaviour {
 			pcClass.GetSkill(cnt).BaseValue = PlayerPrefs.GetInt(((SkillName)cnt).ToString() + "- Base Value", 0);
 			pcClass.GetSkill(cnt).ExpToLevel = PlayerPrefs.GetInt(((SkillName)cnt).ToString() + " - Exp To Level", 0);
 		}
-	}
+	} */
 }

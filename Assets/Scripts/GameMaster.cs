@@ -11,7 +11,7 @@ public class GameMaster : MonoBehaviour {
 	public float xRotOffset;
 	
 	private GameObject _pc;
-	private PlayerCharacter _pcScript;
+//	private PlayerCharacter _pcScript;
 	
 	public Vector3 _playerSpawnPointPos;		//this is the place in 3d place where I want my player to spawm
 	
@@ -33,7 +33,7 @@ public class GameMaster : MonoBehaviour {
 			
 		_pc = Instantiate(playerCharacter, go.transform.position, Quaternion.identity) as GameObject;
 		_pc.name = "pc";
-		_pcScript = _pc.GetComponent<PlayerCharacter>();
+		//_pcScript = _pc.GetComponent<PlayerCharacter>();
 		
 		zOffset = -5.2f;
 		yOffset = 3.7f;
@@ -53,10 +53,10 @@ public class GameMaster : MonoBehaviour {
 			gs1.name = "__GameSettings";
 		}
 		
-		GameSettings gsScript = GameObject.Find("__GameSettings").GetComponent<GameSettings>();
+//		GameSettings gsScript = GameObject.Find("__GameSettings").GetComponent<GameSettings>();
 			
 		//load the character date
-		gsScript.LoadCharacterData();
+//		gsScript.LoadCharacterData();
 			
 	}
 }

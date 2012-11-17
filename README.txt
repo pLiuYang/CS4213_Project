@@ -24,6 +24,7 @@ Features:
 	- Character window
 	- Equipment panel
 	- Changeable weapon meshes
+	- Destroy chest after 120 seconds
 
-TUTORIAL COMPLETED: 1 - 63, 66 - 71, 84 - 114,  116 - 131, 134 - 146,
-TO DO: 64 - 65, 72 - 83, 115(need to create swim animation for the character), 133(create or download icons and use them in GUI stylings)
+TUTORIAL COMPLETED: 1 - 63, 66 - 71, 84 - 114,  116 - 131, 134 - 146, 159 - 163
+TO DO: 64 - 65, 72 - 83, 115(need to create swim animation for the character), 133(create or download icons and use them in GUI stylings), 168-169(Hair), 219(particle effect), 226(animated texture),

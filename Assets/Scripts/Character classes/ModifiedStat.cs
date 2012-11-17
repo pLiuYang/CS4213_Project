@@ -13,6 +13,10 @@ public class ModifiedStat : BaseStat {
 		_mods.Add(mod);
 	}
 	
+	public void ClearModifiers() {
+		_mods.Clear();
+	}
+	
 	private void CalculateModValue() {
 		_modValue = 0;
 		

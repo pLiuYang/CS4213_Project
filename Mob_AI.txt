@@ -1,0 +1,31 @@
+Enemy AI:
+
+It gets spawned(enters) under a spawn point
+	- set state to init
+	- start FSM in start method
+
+Run Init to make sure everything we need is here
+	- set state to setup
+
+Run Setup to make sure that everything is setup the way we need
+	- set state to idle
+
+Sit and wait until a player gets with in range (OnTriggerEnter)
+	- set state to search when they are with in range
+
+Test to see if they can target a player (detects them)
+	- set target to player
+	- set state to attack 
+
+Decide what to do
+	- move
+	- chase
+	- Range Attack
+	- Magic Attack
+	- Melee Attack
+
+When OnTriggerExit fires
+	- return to spawn point
+	- turn off FSM
+	- set target to null
+	- wait for OnTriggerEnter to wake us up again

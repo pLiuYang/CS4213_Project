@@ -62,14 +62,14 @@ public class TargetMob : MonoBehaviour {
 	}
 	
 	private void SelectTarget() {
-		Transform name = selectedTarget.FindChild("Name");
+		Transform name = selectedTarget.Find("Name");
 		
 		if (name == null) {
 			Debug.LogError("Could not find the Name on " + selectedTarget.name);
 			return;
 		}
 		
-		name.GetComponent<TextMesh>().text = selectedTarget.GetComponent<Mob>().Name;
+		name.GetComponent<TextMesh>().text = selectedTarget.GetComponent<Mob>().name;
 		name.GetComponent<MeshRenderer>().enabled = true;
 		
 		Messenger<bool>.Broadcast("show mob vitalbars", true);

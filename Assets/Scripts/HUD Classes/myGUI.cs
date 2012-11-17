@@ -40,10 +40,11 @@ public class myGUI : MonoBehaviour {
 	private const int CHARACTER_WINDOW_ID = 2;
 	private Rect _characterWindowRect = new Rect(210,10,170,265);
 	private int _characterPanel = 0;
-	private string[] _characterPanelNames = new string[] {"Equipment", "Attributes", "Skills"};
+	private string[] _characterPanelNames = new string[] {"Equip", "Attr", "Skills"};
 	
 	// Use this for initialization
 	void Start () {
+		PC.Instance.Initialize();
 		//_lootItems = new List<Item>();
 	}
 	
@@ -77,6 +78,35 @@ public class myGUI : MonoBehaviour {
 			_inventoryWindowRect = GUI.Window(INVENTORY_WINDOW_ID, _inventoryWindowRect, InventoryWindow, "Inventory");
 	
 		DisplayToolTip();
+		
+		if (GUI.Button(new Rect(Screen.width - 95, Screen.height-120, 85, 25), "Character(C)")) {
+			_displayCharacterWindow = !_displayCharacterWindow;
+		}
+		
+		if (GUI.Button(new Rect(Screen.width - 95, Screen.height-90, 85, 25), "Inventory(I)")) {
+			_displayInventory = !_displayInventory;
+		}
+	
+		if (GUI.Button(new Rect(Screen.width - 95, Screen.height-60, 85, 25), "Main Menu")) {
+			GameSetting2.SavePlayerPosition(PC.Instance.transform.position);
+			Application.LoadLevel(GameSetting2.levelNames[0]);
+		}
+		
+		if (GUI.Button(new Rect(Screen.width - 95, Screen.height-30, 85, 25), "Exit(ESC)")) {
+			GameSetting2.SavePlayerPosition(PC.Instance.transform.position);
+			GameObject cc = GameObject.FindWithTag("CharColor");
+			ChangingRoom go = cc.GetComponent<ChangingRoom>();
+			go.SaveCharacterColor();
+			Debug.Log("myGUI: save pos and color");
+			Application.Quit();
+		}
+		
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			GameSetting2.SavePlayerPosition(PC.Instance.transform.position);
+			Application.Quit();
+			Debug.Log("myGUI: save pos");
+			Debug.Log("exit_esc");
+		}
 	}
 	
 	private void LootWindow(int id) {
@@ -96,7 +126,7 @@ public class myGUI : MonoBehaviour {
 		
 		for (int cnt = 0; cnt < chest.loot.Count; cnt++) {
 			if (GUI.Button(new Rect(5 + (buttonWidth * cnt), _offset, buttonWidth, buttonHeight), new GUIContent(chest.loot[cnt].Icon, chest.loot[cnt].ToolTip()))) {
-				PlayerCharacter.Inventory.Add (chest.loot[cnt]);
+				PC.Instance.Inventory.Add (chest.loot[cnt]);
 				chest.loot.RemoveAt(cnt);
 			}
 		}
@@ -125,18 +155,50 @@ public class myGUI : MonoBehaviour {
 		
 		for (int y = 0; y < _inventoryRows; y++) {
 			for (int x = 0; x < _inventoryCols; x++) {
-				if (cnt < PlayerCharacter.Inventory.Count) {
-					if (GUI.Button(new Rect(5 + (x * buttonWidth), 20 + (y * buttonHeight), buttonWidth, buttonHeight), new GUIContent(PlayerCharacter.Inventory[cnt].Icon, PlayerCharacter.Inventory[cnt].ToolTip()))) {
+				if (cnt < PC.Instance.Inventory.Count) {
+					if (GUI.Button(new Rect(5 + (x * buttonWidth), 20 + (y * buttonHeight), buttonWidth, buttonHeight), new GUIContent(PC.Instance.Inventory[cnt].Icon, PC.Instance.Inventory[cnt].ToolTip()))) {
 						if  (_doubleClickTimer != 0 && _selectedItem != null) {
 							if (Time.time - _doubleClickTimer < DOUBLE_CLICK_TIMER_THRESHHOLD) {
 								
-								if (PlayerCharacter.EquipedWeapon == null) {
-									PlayerCharacter.EquipedWeapon = PlayerCharacter.Inventory[cnt];
-									PlayerCharacter.Inventory.RemoveAt(cnt);
-								} else {
-									Item temp = PlayerCharacter.EquipedWeapon;
-									PlayerCharacter.EquipedWeapon = PlayerCharacter.Inventory[cnt];
-									PlayerCharacter.Inventory[cnt] = temp;
+								if (typeof(Weapon) == PC.Instance.Inventory[cnt].GetType()) {
+									if (PC.Instance.EquipedWeapon == null) {
+										PC.Instance.EquipedWeapon = PC.Instance.Inventory[cnt];
+										PC.Instance.Inventory.RemoveAt(cnt);
+									} else {
+										Item temp = PC.Instance.EquipedWeapon;
+										PC.Instance.EquipedWeapon = PC.Instance.Inventory[cnt];
+										PC.Instance.Inventory[cnt] = temp;
+									}
+								} else if (typeof(Armor) == PC.Instance.Inventory[cnt].GetType()) {
+									Armor arm = (Armor)(PC.Instance.Inventory[cnt]);
+									switch(arm.Slot) {
+									case EquipmentSlot.Head:
+										if (PC.Instance.EquipedHeadGear == null) {
+											PC.Instance.EquipedHeadGear = PC.Instance.Inventory[cnt];
+											PC.Instance.Inventory.RemoveAt(cnt);
+										} else {
+											Item temp = PC.Instance.EquipedHeadGear;
+											PC.Instance.EquipedHeadGear = PC.Instance.Inventory[cnt];
+											PC.Instance.Inventory[cnt] = temp;
+										}
+										break;
+									
+									case EquipmentSlot.OffHand:
+										if (PC.Instance.EquipedShield == null) {
+											PC.Instance.EquipedShield = PC.Instance.Inventory[cnt];
+											PC.Instance.Inventory.RemoveAt(cnt);
+										} else {
+											Item temp = PC.Instance.EquipedShield;
+											PC.Instance.EquipedShield = PC.Instance.Inventory[cnt];
+											PC.Instance.Inventory[cnt] = temp;
+										}
+										break;
+									
+									default:
+										Debug.Log("No Defined Equipment Slot");
+										break;
+									}
+									
 								}
 								
 								_doubleClickTimer = 0;
@@ -146,7 +208,7 @@ public class myGUI : MonoBehaviour {
 							}
 						} else {
 							_doubleClickTimer = Time.time;
-							_selectedItem = PlayerCharacter.Inventory[cnt];
+							_selectedItem = PC.Instance.Inventory[cnt];
 						}
 					}
 				} else {
@@ -188,12 +250,30 @@ public class myGUI : MonoBehaviour {
 	}
 	
 	private void DisplayEquipment() {
-		if (PlayerCharacter.EquipedWeapon == null) {
+		if (PC.Instance.EquipedWeapon == null) {
 			GUI.Button(new Rect(5, 100, 40, 40), "X");
 		} else {
-			if (GUI.Button(new Rect(5, 100, 40, 40), new GUIContent(PlayerCharacter.EquipedWeapon.Icon, PlayerCharacter.EquipedWeapon.ToolTip()))) {
-				PlayerCharacter.Inventory.Add(PlayerCharacter.EquipedWeapon);
-				PlayerCharacter.EquipedWeapon = null;
+			if (GUI.Button(new Rect(5, 100, 40, 40), new GUIContent(PC.Instance.EquipedWeapon.Icon, PC.Instance.EquipedWeapon.ToolTip()))) {
+				PC.Instance.Inventory.Add(PC.Instance.EquipedWeapon);
+				PC.Instance.EquipedWeapon = null;
+			}
+		}
+		
+		if (PC.Instance.EquipedShield == null) {
+			GUI.Button(new Rect(55, 100, 40, 40), "X");
+		} else {
+			if (GUI.Button(new Rect(55, 100, 40, 40), new GUIContent(PC.Instance.EquipedShield.Icon, PC.Instance.EquipedShield.ToolTip()))) {
+				PC.Instance.Inventory.Add(PC.Instance.EquipedShield);
+				PC.Instance.EquipedShield = null;
+			}
+		}
+		
+		if (PC.Instance.EquipedHeadGear == null) {
+			GUI.Button(new Rect(105, 100, 40, 40), "X");
+		} else {
+			if (GUI.Button(new Rect(105, 100, 40, 40), new GUIContent(PC.Instance.EquipedHeadGear.Icon, PC.Instance.EquipedHeadGear.ToolTip()))) {
+				PC.Instance.Inventory.Add(PC.Instance.EquipedHeadGear);
+				PC.Instance.EquipedHeadGear = null;
 			}
 		}
 		
@@ -201,11 +281,60 @@ public class myGUI : MonoBehaviour {
 	}
 	
 	private void DisplayAttributes() {
+		int lineHeight = 17;
+		int valueDisplayWidth = 50;
 		
+		GUI.BeginGroup( new Rect(5, 75, _characterWindowRect.width-(_offset*2), 
+			_characterWindowRect.height - 75) );
+		
+		// Display the attributes
+		for (int cnt = 0; cnt < PC.Instance.primaryAttribute.Length; cnt++) {
+			GUI.Label( new Rect(0,cnt*lineHeight,_characterWindowRect.width-(_offset*2)-valueDisplayWidth-5,25), 
+				((AttributeName)cnt).ToString() );
+			GUI.Label( new Rect(_characterWindowRect.width-(_offset*2)-valueDisplayWidth,
+								cnt*lineHeight,
+								valueDisplayWidth,
+								25), 
+						PC.Instance.GetPrimaryAttribute(cnt).BaseValue.ToString() );
+			
+		}
+		
+		// Display the vitals
+		for (int cnt = 0; cnt < PC.Instance.vital.Length; cnt++) {
+			GUI.Label( new Rect(0,(cnt+PC.Instance.primaryAttribute.Length)*lineHeight,_characterWindowRect.width-(_offset*2)-valueDisplayWidth-5,25), 
+				((VitalName)cnt).ToString() );
+			GUI.Label( new Rect(_characterWindowRect.width-(_offset*2)-valueDisplayWidth,
+								(cnt+PC.Instance.primaryAttribute.Length)*lineHeight,
+								valueDisplayWidth,
+								25), 
+						PC.Instance.GetVital(cnt).CurValue.ToString() + "/" +
+						PC.Instance.GetVital(cnt).AdjustedBaseValue.ToString());
+			
+		}
+		
+		GUI.EndGroup();
 	}
 	
 	private void DisplaySkills() {
+		int lineHeight = 17;
+		int valueDisplayWidth = 50;
 		
+		GUI.BeginGroup( new Rect(5, 75, _characterWindowRect.width-(_offset*2), 
+			_characterWindowRect.height - 75) );
+		
+		// Display the skills
+		for (int cnt = 0; cnt < PC.Instance.skill.Length; cnt++) {
+			GUI.Label( new Rect(0,cnt*lineHeight,_characterWindowRect.width-(_offset*2)-valueDisplayWidth-5,25), 
+				((SkillName)cnt).ToString() );
+			GUI.Label( new Rect(_characterWindowRect.width-(_offset*2)-valueDisplayWidth,
+								cnt*lineHeight,
+								valueDisplayWidth,
+								25), 
+						PC.Instance.GetSkill(cnt).AdjustedBaseValue.ToString() );
+			
+		}
+		
+		GUI.EndGroup();
 	}
 	
 	private void SetToolTip() {

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent (typeof(AdvancedMovement))]
+[RequireComponent (typeof(PC))]
 public class PlayerInput : MonoBehaviour {
 
 	// Use this for initialization

@@ -7,7 +7,7 @@ public class Item {
 	private int _durability;
 	private int _curDur;
 	private int _maxDur;
-	private Texture2D _icon;
+	public Texture2D _icon;
 	
 	public Item() {
 		_name = "Need Name";

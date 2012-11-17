@@ -3,8 +3,8 @@ using System.Collections;
 using System;							//used for the Enum class
 
 public class CharacterGenerator : MonoBehaviour {
-	private PlayerCharacter _toon;
-	private const int STARTING_POINTS = 290;
+	//private PlayerCharacter _toon;
+	private const int STARTING_POINTS = 305;
 	private const int MIN_STARTING_ATTRIBUTE_VALUE = 10;
 	private const int STARTINT_VALUE = 50;
 	private int pointsLeft;
@@ -22,26 +22,21 @@ public class CharacterGenerator : MonoBehaviour {
 	public GUIStyle myStyle;
 	//public GUISkin mySkin;
 	
-	public GameObject playerPrefab;
-
+	//public GameObject playerPrefab;
+	
+	void Awake() {
+		//PC.Instance.Initialize();
+	}
+	
 	// Use this for initialization
 	void Start () {
-		GameObject pc = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
-		
-		pc.name = "pc";
-		
-		_toon = pc.GetComponent<PlayerCharacter>();
-		
-			//_toon = new PlayerCharacter();
-			//_toon.Awake();
-		
 		pointsLeft = STARTING_POINTS;
 		for (int cnt = 0; cnt < Enum.GetValues(typeof(AttributeName)).Length; cnt++) {
-			_toon.GetPrimaryAttribute(cnt).BaseValue = STARTINT_VALUE;
+			PC.Instance.GetPrimaryAttribute(cnt).BaseValue = STARTINT_VALUE;
 			pointsLeft -= (STARTINT_VALUE - MIN_STARTING_ATTRIBUTE_VALUE);
 		} 
 		
-		_toon.StatUpdate();
+		PC.Instance.StatUpdate();
 	}
 	
 	// Update is called once per frame
@@ -58,7 +53,7 @@ public class CharacterGenerator : MonoBehaviour {
 		DisplayVitals();
 		DisplaySkills();
 		
-		if (_toon.Name == "" || pointsLeft > 0)
+		if (PC.Instance.name == "" || pointsLeft > 0)
 			DisplayCreateLabel();
 		else
 			DisplayCreateButton();
@@ -66,7 +61,7 @@ public class CharacterGenerator : MonoBehaviour {
 	
 	private void DisplayName() {
 		GUI.Label(new Rect(10, 10, 50, 25), "Name:");
-		_toon.Name = GUI.TextField(new Rect(65, 10, 100, 25), _toon.Name);
+		PC.Instance.name = GUI.TextField(new Rect(65, 10, 100, 25), PC.Instance.name);
 	}
 	
 	private void DisplayAttributes() {
@@ -81,17 +76,17 @@ public class CharacterGenerator : MonoBehaviour {
 								statStartingPos + (cnt * LINE_HEIGHT), 		//y
 								BASEVALUE_LABEL_WIDTH, 						//width
 								LINE_HEIGHT									//height
-				), _toon.GetPrimaryAttribute(cnt).AdjustedBaseValue.ToString());
+				), PC.Instance.GetPrimaryAttribute(cnt).AdjustedBaseValue.ToString());
 			
 			if (GUI.Button(new Rect( STAT_LABEL_WIDTH + OFFSET + BASEVALUE_LABEL_WIDTH, //x
 									 statStartingPos + (cnt * BUTTON_HEIGHT), 			//y
 									 BUTTON_WIDTH, 										//width
 									 BUTTON_HEIGHT										//height
 				), "-", myStyle)) {
-				if (_toon.GetPrimaryAttribute(cnt).BaseValue > MIN_STARTING_ATTRIBUTE_VALUE) {
-					_toon.GetPrimaryAttribute(cnt).BaseValue--;
+				if (PC.Instance.GetPrimaryAttribute(cnt).BaseValue > MIN_STARTING_ATTRIBUTE_VALUE) {
+					PC.Instance.GetPrimaryAttribute(cnt).BaseValue--;
 					pointsLeft++;
-					_toon.StatUpdate();
+					PC.Instance.StatUpdate();
 				}
 			}
 			if (GUI.Button(new Rect( STAT_LABEL_WIDTH + OFFSET + BASEVALUE_LABEL_WIDTH + BUTTON_WIDTH,   //x
@@ -100,9 +95,9 @@ public class CharacterGenerator : MonoBehaviour {
 									 BUTTON_HEIGHT														 //weight
 				), "+", myStyle)) {
 				if (pointsLeft > 0) {
-					_toon.GetPrimaryAttribute(cnt).BaseValue++;
+					PC.Instance.GetPrimaryAttribute(cnt).BaseValue++;
 					pointsLeft--;
-					_toon.StatUpdate();
+					PC.Instance.StatUpdate();
 				}
 			}
 		}
@@ -111,14 +106,14 @@ public class CharacterGenerator : MonoBehaviour {
 	private void DisplayVitals() {
 		for (int cnt = 0; cnt < Enum.GetValues(typeof(VitalName)).Length; cnt++) {
 			GUI.Label(new Rect(OFFSET, statStartingPos + ((cnt + 7) * LINE_HEIGHT), STAT_LABEL_WIDTH, LINE_HEIGHT), ((VitalName)cnt).ToString());
-			GUI.Label(new Rect(STAT_LABEL_WIDTH + OFFSET, statStartingPos + ((cnt + 7) * LINE_HEIGHT), BASEVALUE_LABEL_WIDTH, LINE_HEIGHT), _toon.GetVital(cnt).AdjustedBaseValue.ToString());
+			GUI.Label(new Rect(STAT_LABEL_WIDTH + OFFSET, statStartingPos + ((cnt + 7) * LINE_HEIGHT), BASEVALUE_LABEL_WIDTH, LINE_HEIGHT), PC.Instance.GetVital(cnt).AdjustedBaseValue.ToString());
 		}
 	}
 	
 	private void DisplaySkills() {
 		for (int cnt = 0; cnt < Enum.GetValues(typeof(SkillName)).Length; cnt++) {
 			GUI.Label(new Rect(STAT_LABEL_WIDTH + OFFSET + BASEVALUE_LABEL_WIDTH + BUTTON_WIDTH * 2 + OFFSET * 2, statStartingPos + (cnt * LINE_HEIGHT), STAT_LABEL_WIDTH, LINE_HEIGHT), ((SkillName)cnt).ToString());
-			GUI.Label(new Rect(STAT_LABEL_WIDTH * 2 + OFFSET + BASEVALUE_LABEL_WIDTH + BUTTON_WIDTH * 2 + OFFSET * 2, statStartingPos + (cnt * LINE_HEIGHT), BASEVALUE_LABEL_WIDTH, LINE_HEIGHT), _toon.GetSkill(cnt).AdjustedBaseValue.ToString());
+			GUI.Label(new Rect(STAT_LABEL_WIDTH * 2 + OFFSET + BASEVALUE_LABEL_WIDTH + BUTTON_WIDTH * 2 + OFFSET * 2, statStartingPos + (cnt * LINE_HEIGHT), BASEVALUE_LABEL_WIDTH, LINE_HEIGHT), PC.Instance.GetSkill(cnt).AdjustedBaseValue.ToString());
 		}
 	}
 	
@@ -131,22 +126,22 @@ public class CharacterGenerator : MonoBehaviour {
 	}
 	
 	private void DisplayCreateButton() {
-		if (GUI.Button(new Rect( Screen.width / 2 - 50, statStartingPos + (10 * LINE_HEIGHT), 100, LINE_HEIGHT), "Create")) {
-			GameSettings gsScript = GameObject.Find("__GameSettings").GetComponent<GameSettings>();
-			
+		if (GUI.Button(new Rect( Screen.width / 2 - 50, statStartingPos + (10 * LINE_HEIGHT), 100, LINE_HEIGHT), "Next")) {
 			//change the cur value of the vitals to the max modified value of that vital
 			UpdateCurVitalValues();
 			
-			//save the character date
-			gsScript.SaveCharacterData();
+			GameSetting2.SaveName( PC.Instance.name );
+			GameSetting2.SaveAttributes( PC.Instance.primaryAttribute );
+			GameSetting2.SaveVitals( PC.Instance.vital );
+			GameSetting2.SaveSkills( PC.Instance.skill );
 			
-			Application.LoadLevel("Level1");
+			Application.LoadLevel(GameSetting2.levelNames[2]);
 		}
 	}
 	
 	private void UpdateCurVitalValues() {
 		for (int cnt = 0; cnt < Enum.GetValues(typeof(VitalName)).Length; cnt++) {
-			_toon.GetVital(cnt).CurValue = _toon.GetVital(cnt).AdjustedBaseValue;
+			PC.Instance.GetVital(cnt).CurValue = PC.Instance.GetVital(cnt).AdjustedBaseValue;
 		}
 	}
 }
