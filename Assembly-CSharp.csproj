@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\CharacterMeshScale.cs" />
      <Compile Include="Assets\Scripts\Chest.cs" />
      <Compile Include="Assets\Scripts\DetectLeaks.cs" />
+     <Compile Include="Assets\Scripts\Dialog.cs" />
      <Compile Include="Assets\Scripts\EnemyAI.cs" />
      <Compile Include="Assets\Scripts\EnemyAttack.cs" />
      <Compile Include="Assets\Scripts\EnemyHealth.cs" />

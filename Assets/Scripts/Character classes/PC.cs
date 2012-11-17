@@ -64,7 +64,8 @@ public class PC : BaseCharacter {
 		}
 		
 		if (Input.GetKeyDown(KeyCode.F)) {
-			animation.CrossFade("AxeSlash");
+			//animation.CrossFade("AxeSlash");
+			SendMessage("PlayMeleeAttack");
 			Debug.Log("Attacking");
 		}
 	}

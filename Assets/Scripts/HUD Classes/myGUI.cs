@@ -18,7 +18,15 @@ public class myGUI : MonoBehaviour {
 	private Vector2 _lootWindowSlider = Vector2.zero;
 	public static Chest chest;
 	
+	//dialog window
+	private bool _displayDialogWindow = false;
+	private const int DIALOG_WINDOW_ID = 3;
+	private Rect _dialogWindowRect = new Rect(0,0,0,0);
+	private Vector2 _dialogWindowSlider = Vector2.zero;
+	public static Dialog dialog;
+	
 	private string _toolTip = "";
+	private string _dialogString = "";
 	
 	//*****************************
 	//* Inventory window variable
@@ -50,6 +58,7 @@ public class myGUI : MonoBehaviour {
 	
 	private void OnEnable() {
 		Messenger.AddListener("DisplayLoot", DisplayLoot);
+		Messenger.AddListener("DisplayDialog", DisplayDialog);
 		Messenger.AddListener("ToggleInventory", ToggleInventoryWindow);
 		Messenger.AddListener("CloseChest", ClearWindow);
 		Messenger.AddListener("ToggleCharacterWindow", ToggleCharacterWindow);
@@ -57,6 +66,7 @@ public class myGUI : MonoBehaviour {
 	
 	private void OnDisable() {
 		Messenger.RemoveListener("DisplayLoot", DisplayLoot);
+		Messenger.RemoveListener("DisplayDialog", DisplayDialog);
 		Messenger.RemoveListener("ToggleInventory", ToggleInventoryWindow);
 		Messenger.RemoveListener("CloseChest", ClearWindow);
 		Messenger.RemoveListener("ToggleCharacterWindow", ToggleCharacterWindow);
@@ -68,6 +78,9 @@ public class myGUI : MonoBehaviour {
 	}
 	
 	void OnGUI() {
+		if (_displayDialogWindow)
+			_dialogWindowRect = GUI.Window(DIALOG_WINDOW_ID, new Rect(_offset, Screen.height - (_offset + lootWindowHeight), Screen.width - (_offset * 2), lootWindowHeight), DialogWindow, "Dialog");
+		
 		if (_displayLootWindow)
 			_lootWindowRect = GUI.Window(LOOT_WINDOW_ID, new Rect(_offset, Screen.height - (_offset + lootWindowHeight), Screen.width - (_offset * 2), lootWindowHeight), LootWindow, "Loot Window");
 		
@@ -89,14 +102,19 @@ public class myGUI : MonoBehaviour {
 	
 		if (GUI.Button(new Rect(Screen.width - 95, Screen.height-60, 85, 25), "Main Menu")) {
 			GameSetting2.SavePlayerPosition(PC.Instance.transform.position);
+			GameObject cc = GameObject.FindWithTag("CharColor");
+			ChangingRoom go = cc.GetComponent<ChangingRoom>();
+			go.SaveCharacterColor();
 			Application.LoadLevel(GameSetting2.levelNames[0]);
 		}
 		
 		if (GUI.Button(new Rect(Screen.width - 95, Screen.height-30, 85, 25), "Exit(ESC)")) {
 			GameSetting2.SavePlayerPosition(PC.Instance.transform.position);
 			GameObject cc = GameObject.FindWithTag("CharColor");
-			ChangingRoom go = cc.GetComponent<ChangingRoom>();
-			go.SaveCharacterColor();
+			if (cc != null) {
+				ChangingRoom go = cc.GetComponent<ChangingRoom>();
+				go.SaveCharacterColor();
+			}
 			Debug.Log("myGUI: save pos and color");
 			Application.Quit();
 		}
@@ -136,6 +154,21 @@ public class myGUI : MonoBehaviour {
 		SetToolTip();
 	}
 	
+	private void DialogWindow(int id) {
+		if (GUI.Button(new Rect(_dialogWindowRect.width - 20 - _offset, 3, closeButtonWidth, clostButtonHeight), "x")) {
+			ClearWindow();
+		}
+		
+		_dialogWindowSlider = GUI.BeginScrollView(new Rect(_offset * .5f, 15, _dialogWindowRect.width - 10, 70), _dialogWindowSlider, new Rect(0, 0, _offset, _offset));
+		GUI.Label (new Rect (0, 0, 400, 400), _dialogString);
+		GUI.EndScrollView();
+	}
+	
+	private void DisplayDialog() {
+		_displayDialogWindow = true;
+		_dialogString = dialog.sentence;
+	}
+	
 	private void DisplayLoot() {
 		_displayLootWindow = true;
 	}
@@ -144,10 +177,12 @@ public class myGUI : MonoBehaviour {
 		//_lootItems.Clear();
 		
 		//if (chest != null)
-		chest.OnMouseUp();
+		if (chest != null)
+			chest.OnMouseUp();
 		
 		chest = null;
 		_displayLootWindow = false;
+		_displayDialogWindow = false;
 	}
 	
 	public void InventoryWindow(int id) {

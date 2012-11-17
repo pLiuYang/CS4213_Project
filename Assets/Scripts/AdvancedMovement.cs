@@ -213,7 +213,7 @@ public class AdvancedMovement : MonoBehaviour {
 		
 		Debug.Log("amin length: " + attack.length);
 		
-		//animation[attack.name].speed = animation[attack.name].length / 2f;
+		animation[attack.name].speed = animation[attack.name].length / 2f;
 		
 		Debug.Log("amin speed2222222: " + animation[attack.name].speed.ToString());
 		
